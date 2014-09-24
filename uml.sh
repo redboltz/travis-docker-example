@@ -63,7 +63,7 @@ docker -d &
 sleep 5
 
 # Use docker
-WORKSPACE=.
+WORKSPACE=/
 distro=ubuntu
 
 /bin/echo -ne '#!/bin/sh\ngit clone https://github.com/redboltz/msgpack-c.git ' > $WORKSPACE/work/do_docker.sh
