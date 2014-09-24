@@ -67,6 +67,8 @@ WORKSPACE=/home/travis/build/redboltz/travis-docker-example
 distro=ubuntu
 branch=poc/0.6
 compiler=gcc
+build=cmake
+cpp_version=cpp03
 
 if [ -d work ]; then
     rm -rf work
