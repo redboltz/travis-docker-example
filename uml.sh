@@ -65,6 +65,8 @@ sleep 5
 # Use docker
 WORKSPACE=/
 distro=ubuntu
+branch=poc/0.6
+ls -al
 
 /bin/echo -ne '#!/bin/sh\ngit clone https://github.com/redboltz/msgpack-c.git ' > $WORKSPACE/work/do_docker.sh
 /bin/echo -ne '&& cd msgpack-c && git checkout ' >> $WORKSPACE/work/do_docker.sh
