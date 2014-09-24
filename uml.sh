@@ -63,4 +63,23 @@ docker -d &
 sleep 5
 
 # Use docker
-docker run ubuntu /bin/echo hello world
+WORKSPACE=.
+distro=ubuntu
+
+/bin/echo -ne '#!/bin/sh\ngit clone https://github.com/redboltz/msgpack-c.git ' > $WORKSPACE/work/do_docker.sh
+/bin/echo -ne '&& cd msgpack-c && git checkout ' >> $WORKSPACE/work/do_docker.sh
+/bin/echo -ne $branch                            >> $WORKSPACE/work/do_docker.sh
+/bin/echo -ne ' && CC='                          >> $WORKSPACE/work/do_docker.sh
+/bin/echo -ne $cc                                >> $WORKSPACE/work/do_docker.sh
+/bin/echo -ne ' CXX='                            >> $WORKSPACE/work/do_docker.sh
+/bin/echo -ne $cxx                               >> $WORKSPACE/work/do_docker.sh
+/bin/echo -ne ' ci/build_'                       >> $WORKSPACE/work/do_docker.sh
+/bin/echo -ne $build                             >> $WORKSPACE/work/do_docker.sh
+/bin/echo -ne '.sh '                             >> $WORKSPACE/work/do_docker.sh
+/bin/echo -ne $cpp_version                       >> $WORKSPACE/work/do_docker.sh
+/bin/echo -ne '\n'                               >> $WORKSPACE/work/do_docker.sh
+cat $WORKSPACE/work/do_docker.sh
+docker pull redboltz/msgpack-test-$distro:latest
+docker run -v $WORKSPACE/work:/work redboltz/msgpack-test-$distro:latest /bin/sh -ex /work/do_docker.sh
+
+#docker run ubuntu /bin/echo hello world
