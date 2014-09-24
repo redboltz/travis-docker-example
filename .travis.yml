@@ -8,6 +8,12 @@ install:
   - sudo apt-get install -y slirp lxc lxc-docker aufs-tools cgroup-lite
   - curl -sLo linux https://github.com/jpetazzo/sekexe/raw/master/uml
   - chmod +x linux
-  
+
+env:
+  - BUILD="autotools" CPP_VERSION="cpp11"
+  - BUILD="autotools" CPP_VERSION="cpp03"
+  - BUILD="cmake"     CPP_VERSION="cpp11"
+  - BUILD="cmake"     CPP_VERSION="cpp03"
+
 script:
-  - ./linux quiet mem=2G rootfstype=hostfs rw eth0=slirp,,/usr/bin/slirp-fullbolt init=$(pwd)/uml.sh WORKDIR=$(pwd) HOME=$HOME
+  - ./linux quiet mem=2G rootfstype=hostfs rw eth0=slirp,,/usr/bin/slirp-fullbolt init=$(pwd)/uml.sh WORKDIR=$(pwd) HOME=$HOME BUILD=$BUILD CPP_VERSION=$CPP_VERSION

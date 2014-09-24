@@ -67,8 +67,6 @@ sleep 5
 distro=ubuntu
 branch=poc/0.6
 compiler=gcc
-build=cmake
-cpp_version=cpp03
 
 if [ -d work ]; then
     rm -rf work
@@ -92,9 +90,9 @@ fi
 /bin/echo -ne ' CXX='                            >> $WORKDIR/work/do_docker.sh
 /bin/echo -ne $cxx                               >> $WORKDIR/work/do_docker.sh
 /bin/echo -ne ' ci/build_'                       >> $WORKDIR/work/do_docker.sh
-/bin/echo -ne $build                             >> $WORKDIR/work/do_docker.sh
+/bin/echo -ne $BUILD                             >> $WORKDIR/work/do_docker.sh
 /bin/echo -ne '.sh '                             >> $WORKDIR/work/do_docker.sh
-/bin/echo -ne $cpp_version                       >> $WORKDIR/work/do_docker.sh
+/bin/echo -ne $CPP_VERSION                       >> $WORKDIR/work/do_docker.sh
 /bin/echo -ne '\n'                               >> $WORKDIR/work/do_docker.sh
 cat $WORKDIR/work/do_docker.sh
 docker pull redboltz/msgpack-test-$distro:latest
