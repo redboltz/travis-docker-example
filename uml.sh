@@ -96,6 +96,3 @@ fi
 cat $WORKDIR/work/do_docker.sh
 docker pull redboltz/msgpack-test-$DISTRO:latest
 docker run -v $WORKDIR/work:/work redboltz/msgpack-test-$DISTRO:latest /bin/sh -ex /work/do_docker.sh
-cat $WORKDIR/work/result
-diff $WORKDIR/work/result $WORKDIR/expected
-#docker run ubuntu /bin/echo hello world

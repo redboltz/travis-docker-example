@@ -10,18 +10,24 @@ install:
   - chmod +x linux
 
 env:
-  - BRANCH="master" DISTRO="centos" BUILD="autotools" COMPILER="gcc"   CPP_VERSION="cpp11"
-  - BRANCH="master" DISTRO="centos" BUILD="autotools" COMPILER="gcc"   CPP_VERSION="cpp03"
-  - BRANCH="master" DISTRO="centos" BUILD="autotools" COMPILER="clang" CPP_VERSION="cpp11"
-  - BRANCH="master" DISTRO="centos" BUILD="autotools" COMPILER="clang" CPP_VERSION="cpp03"
-  - BRANCH="master" DISTRO="centos" BUILD="cmake"     COMPILER="gcc"   CPP_VERSION="cpp11"
-  - BRANCH="master" DISTRO="centos" BUILD="cmake"     COMPILER="gcc"   CPP_VERSION="cpp03"
-  - BRANCH="master" DISTRO="centos" BUILD="cmake"     COMPILER="clang" CPP_VERSION="cpp11"
-  - BRANCH="master" DISTRO="centos" BUILD="cmake    " COMPILER="clang" CPP_VERSION="cpp03"
+  - BRANCH="master"  DISTRO="centos" BUILD="autotools" COMPILER="gcc"   CPP_VERSION="cpp11"
+  - BRANCH="master"  DISTRO="centos" BUILD="autotools" COMPILER="gcc"   CPP_VERSION="cpp03"
+  - BRANCH="master"  DISTRO="centos" BUILD="autotools" COMPILER="clang" CPP_VERSION="cpp11"
+  - BRANCH="master"  DISTRO="centos" BUILD="autotools" COMPILER="clang" CPP_VERSION="cpp03"
+  - BRANCH="master"  DISTRO="centos" BUILD="cmake"     COMPILER="gcc"   CPP_VERSION="cpp11"
+  - BRANCH="master"  DISTRO="centos" BUILD="cmake"     COMPILER="gcc"   CPP_VERSION="cpp03"
+  - BRANCH="master"  DISTRO="centos" BUILD="cmake"     COMPILER="clang" CPP_VERSION="cpp11"
+  - BRANCH="master"  DISTRO="centos" BUILD="cmake    " COMPILER="clang" CPP_VERSION="cpp03"
+  - BRANCH="poc/0.6" DISTRO="centos" BUILD="autotools" COMPILER="gcc"   CPP_VERSION="cpp11"
+  - BRANCH="poc/0.6" DISTRO="centos" BUILD="autotools" COMPILER="gcc"   CPP_VERSION="cpp03"
+  - BRANCH="poc/0.6" DISTRO="centos" BUILD="autotools" COMPILER="clang" CPP_VERSION="cpp11"
+  - BRANCH="poc/0.6" DISTRO="centos" BUILD="autotools" COMPILER="clang" CPP_VERSION="cpp03"
+  - BRANCH="poc/0.6" DISTRO="centos" BUILD="cmake"     COMPILER="gcc"   CPP_VERSION="cpp11"
+  - BRANCH="poc/0.6" DISTRO="centos" BUILD="cmake"     COMPILER="gcc"   CPP_VERSION="cpp03"
+  - BRANCH="poc/0.6" DISTRO="centos" BUILD="cmake"     COMPILER="clang" CPP_VERSION="cpp11"
+  - BRANCH="poc/0.6" DISTRO="centos" BUILD="cmake    " COMPILER="clang" CPP_VERSION="cpp03"
 
 
 script:
   - ./linux quiet mem=2G rootfstype=hostfs rw eth0=slirp,,/usr/bin/slirp-fullbolt init=$(pwd)/uml.sh WORKDIR=$(pwd) HOME=$HOME BRANCH=$BRANCH DISTRO=$DISTRO BUILD=$BUILD COMPILER=$COMPILER CPP_VERSION=$CPP_VERSION
-  - echo "result"
-  - cat $(pwd)/work/result
   - diff $(pwd)/work/result $(pwd)/expected
