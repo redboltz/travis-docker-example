@@ -64,26 +64,24 @@ sleep 5
 
 # Use docker
 #WORKSPACE=/home/travis/build/redboltz/travis-docker-example
-branch=poc/0.6
-compiler=gcc
 
 if [ -d work ]; then
     rm -rf work
 fi
 mkdir work
 
-if [ "$compiler" = "gcc" ]; then
+if [ "$COMPILER" = "gcc" ]; then
     cc="gcc"
     cxx="g++"
 fi
-if [ "$compiler" = "clang" ]; then
+if [ "$COMPILER" = "clang" ]; then
     cc="clang"
     cxx="clang++"
 fi
 
 /bin/echo -ne '#!/bin/sh\ngit clone https://github.com/redboltz/msgpack-c.git ' > $WORKDIR/work/do_docker.sh
 /bin/echo -ne '&& cd msgpack-c && git checkout ' >> $WORKDIR/work/do_docker.sh
-/bin/echo -ne $branch                            >> $WORKDIR/work/do_docker.sh
+/bin/echo -ne $BRANCH                            >> $WORKDIR/work/do_docker.sh
 /bin/echo -ne ' && CC='                          >> $WORKDIR/work/do_docker.sh
 /bin/echo -ne $cc                                >> $WORKDIR/work/do_docker.sh
 /bin/echo -ne ' CXX='                            >> $WORKDIR/work/do_docker.sh
@@ -93,10 +91,11 @@ fi
 /bin/echo -ne '.sh '                             >> $WORKDIR/work/do_docker.sh
 /bin/echo -ne $CPP_VERSION                       >> $WORKDIR/work/do_docker.sh
 /bin/echo -ne '\n'                               >> $WORKDIR/work/do_docker.sh
-/bin/echo -ne 'echo $? > /work/result\n'         >> $WORKDIR/work/do_docker.sh
+/bin/echo -ne 'echo -ne $? > /work/result\n'     >> $WORKDIR/work/do_docker.sh
 
 cat $WORKDIR/work/do_docker.sh
 docker pull redboltz/msgpack-test-$DISTRO:latest
 docker run -v $WORKDIR/work:/work redboltz/msgpack-test-$DISTRO:latest /bin/sh -ex /work/do_docker.sh
 cat $WORKDIR/work/result
+diff $WORKDIR/work/result $WORKDIR/expected
 #docker run ubuntu /bin/echo hello world
