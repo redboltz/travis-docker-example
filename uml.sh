@@ -91,7 +91,7 @@ fi
 /bin/echo -ne '.sh '                             >> $WORKDIR/work/do_docker.sh
 /bin/echo -ne $CPP_VERSION                       >> $WORKDIR/work/do_docker.sh
 /bin/echo -ne '\n'                               >> $WORKDIR/work/do_docker.sh
-/bin/echo -ne 'echo -ne $? > /work/result\n'     >> $WORKDIR/work/do_docker.sh
+/bin/echo -ne '/bin/echo $? > /work/result\n'    >> $WORKDIR/work/do_docker.sh
 
 cat $WORKDIR/work/do_docker.sh
 docker pull redboltz/msgpack-test-$DISTRO:latest
