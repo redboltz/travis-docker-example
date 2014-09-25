@@ -10,10 +10,10 @@ install:
   - chmod +x linux
 
 env:
-  - BUILD="autotools" CPP_VERSION="cpp11"
-  - BUILD="autotools" CPP_VERSION="cpp03"
-  - BUILD="cmake"     CPP_VERSION="cpp11"
-  - BUILD="cmake"     CPP_VERSION="cpp03"
+  - DISTRO="centos" BUILD="autotools" CPP_VERSION="cpp11"
+  - DISTRO="centos" BUILD="autotools" CPP_VERSION="cpp03"
+  - DISTRO="centos" BUILD="cmake"     CPP_VERSION="cpp11"
+  - DISTRO="centos" BUILD="cmake"     CPP_VERSION="cpp03"
 
 script:
-  - ./linux quiet mem=2G rootfstype=hostfs rw eth0=slirp,,/usr/bin/slirp-fullbolt init=$(pwd)/uml.sh WORKDIR=$(pwd) HOME=$HOME BUILD=$BUILD CPP_VERSION=$CPP_VERSION
+  - ./linux quiet mem=2G rootfstype=hostfs rw eth0=slirp,,/usr/bin/slirp-fullbolt init=$(pwd)/uml.sh WORKDIR=$(pwd) HOME=$HOME BUILD=$BUILD CPP_VERSION=$CPP_VERSION DISTRO=$DISTRO

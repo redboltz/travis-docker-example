@@ -64,7 +64,6 @@ sleep 5
 
 # Use docker
 #WORKSPACE=/home/travis/build/redboltz/travis-docker-example
-distro=ubuntu
 branch=poc/0.6
 compiler=gcc
 
@@ -94,8 +93,10 @@ fi
 /bin/echo -ne '.sh '                             >> $WORKDIR/work/do_docker.sh
 /bin/echo -ne $CPP_VERSION                       >> $WORKDIR/work/do_docker.sh
 /bin/echo -ne '\n'                               >> $WORKDIR/work/do_docker.sh
-cat $WORKDIR/work/do_docker.sh
-docker pull redboltz/msgpack-test-$distro:latest
-docker run -v $WORKDIR/work:/work redboltz/msgpack-test-$distro:latest /bin/sh -ex /work/do_docker.sh
+/bin/echo -ne 'echo $? > /work/result\n'         >> $WORKDIR/work/do_docker.sh
 
+cat $WORKDIR/work/do_docker.sh
+docker pull redboltz/msgpack-test-$DISTRO:latest
+docker run -v $WORKDIR/work:/work redboltz/msgpack-test-$DISTRO:latest /bin/sh -ex /work/do_docker.sh
+cat $WORKDIR/work/result
 #docker run ubuntu /bin/echo hello world
