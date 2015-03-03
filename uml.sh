@@ -89,7 +89,9 @@ fi
 /bin/echo -ne ' ci/build_'                       >> $WORKDIR/work/do_docker.sh
 /bin/echo -ne $BUILD                             >> $WORKDIR/work/do_docker.sh
 /bin/echo -ne '.sh '                             >> $WORKDIR/work/do_docker.sh
-/bin/echo -ne $CPP_VERSION                       >> $WORKDIR/work/do_docker.sh
+/bin/echo -ne $VERSION                           >> $WORKDIR/work/do_docker.sh
+/bin/echo -ne ' '                                >> $WORKDIR/work/do_docker.sh
+/bin/echo -ne $ARCH                              >> $WORKDIR/work/do_docker.sh
 /bin/echo -ne '\n'                               >> $WORKDIR/work/do_docker.sh
 /bin/echo -ne '/bin/echo $? > /work/result\n'    >> $WORKDIR/work/do_docker.sh
 
